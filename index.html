@@ -407,50 +407,39 @@
   }
   #reason-progress{ font-family:'Caveat'; font-size:1.1rem; color:var(--plum-soft); margin:4px 0 0; }
 
-  /* ---------- phone-mirror mockup ---------- */
-  .phone-stack{ display:flex; flex-direction:column; gap:14px; margin:16px 0 4px; }
-  .phone-chip{
-    border-radius:20px; overflow:hidden; box-shadow:0 8px 20px rgba(91,58,82,.18);
-    border:3px solid #2b2b33; background:#111;
+  /* ---------- love receipt ---------- */
+  .receipt-card{ padding-bottom:30px; }
+  .receipt{
+    background:#fdfaf3; color:#3a3630; margin:14px auto 0; max-width:280px;
+    font-family:'Courier New', Courier, monospace; font-size:.8rem; line-height:1.6;
+    padding:18px 16px 22px; text-align:left;
+    box-shadow:0 10px 24px rgba(91,58,82,.18);
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 94%,
+      95% 100%, 90% 94%, 85% 100%, 80% 94%, 75% 100%, 70% 94%, 65% 100%,
+      60% 94%, 55% 100%, 50% 94%, 45% 100%, 40% 94%, 35% 100%, 30% 94%,
+      25% 100%, 20% 94%, 15% 100%, 10% 94%, 5% 100%, 0% 94%
+    );
   }
-  .chip-label{
-    font-family:'Fredoka'; font-size:.68rem; font-weight:600; letter-spacing:.04em;
-    color:var(--plum-soft); text-transform:uppercase; margin:0 0 6px; text-align:left;
+  .receipt-header{ text-align:center; margin-bottom:10px; }
+  .receipt-star{ color:var(--pink); font-size:.8rem; letter-spacing:.2em; }
+  .receipt-shop{ font-weight:700; font-size:.95rem; letter-spacing:.08em; margin-top:2px; }
+  .receipt-sub{ font-size:.68rem; color:#8a8378; margin-top:2px; }
+  .receipt-line{ font-size:.72rem; }
+  .receipt-divider{ font-size:.7rem; color:#c9c2b3; margin:6px 0; letter-spacing:-1px; overflow:hidden; white-space:nowrap; }
+  .receipt-items{ display:flex; flex-direction:column; gap:4px; }
+  .receipt-item-row{ display:flex; justify-content:space-between; gap:8px; font-size:.72rem; }
+  .receipt-item-row .item-name{ flex:1 1 auto; }
+  .receipt-total{ font-weight:700; font-size:.8rem; display:flex; justify-content:space-between; }
+  .receipt-footer{
+    text-align:center; font-family:'Caveat'; font-size:1rem; color:var(--pink-deep);
+    margin-top:10px; line-height:1.4;
   }
-  /* wallpaper chip */
-  .wallpaper-screen{
-    height:150px; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:
-      radial-gradient(circle at 20% 15%, rgba(255,255,255,.25), transparent 40%),
-      linear-gradient(160deg, var(--lavender), var(--pink-deep));
-    color:#fff; padding:14px;
+  .receipt-barcode{
+    height:26px; margin-top:12px;
+    background:repeating-linear-gradient(90deg,#3a3630 0 2px, transparent 2px 4px, #3a3630 4px 5px, transparent 5px 9px);
+    opacity:.85;
   }
-  .wallpaper-time{ font-family:'Fredoka'; font-size:.75rem; opacity:.85; letter-spacing:.05em; }
-  .wallpaper-name{ font-family:'Caveat'; font-size:2rem; font-weight:700; text-shadow:0 3px 10px rgba(0,0,0,.2); margin-top:2px; }
-  .wallpaper-hearts{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-  .wallpaper-hearts span{ position:absolute; font-size:.9rem; opacity:.35; }
-  /* contact chip */
-  .contact-screen{
-    height:112px; background:#1c1c22; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:10px;
-  }
-  .contact-avatar{
-    width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg,var(--pink),var(--lavender)); font-size:1.3rem;
-  }
-  .contact-name{ font-family:'Fredoka'; color:#fff; font-size:1rem; font-weight:600; }
-  .contact-sub{ font-family:'Quicksand'; color:#9a9aa5; font-size:.68rem; letter-spacing:.03em; }
-  .contact-dots{ display:flex; gap:4px; }
-  .contact-dots span{ width:5px; height:5px; border-radius:50%; background:#7fd9ac; animation:dotPulse 1.2s ease-in-out infinite; }
-  .contact-dots span:nth-child(2){ animation-delay:.2s; }
-  .contact-dots span:nth-child(3){ animation-delay:.4s; }
-  @keyframes dotPulse{ 0%,100%{ opacity:.3; } 50%{ opacity:1; } }
-  /* notes chip */
-  .notes-screen{
-    background:#fdf7ec; padding:14px; min-height:96px; display:flex; flex-direction:column; gap:4px;
-  }
-  .notes-title{ font-family:'Fredoka'; font-size:.72rem; font-weight:700; color:#b8860b; letter-spacing:.03em; }
-  .notes-time{ font-family:'Quicksand'; font-size:.6rem; color:#a8977a; margin-bottom:4px; }
-  .notes-body{ font-family:'Caveat'; font-size:1.15rem; color:#4a3c28; line-height:1.3; text-align:left; }
 
 
 
@@ -655,45 +644,32 @@
   </div>
 </section>
 
-<!-- STAGE 3.6: PHONE MIRROR (wallpaper / contact / 2am note) -->
+<!-- STAGE 3.6: LOVE RECEIPT -->
 <section class="stage" id="stage-phone">
-  <div class="card">
+  <div class="card receipt-card">
     <div class="tape tl"></div>
     <div class="tape tr"></div>
-    <span class="eyebrow">how you live in my phone 📱</span>
-    <h2 class="headline" style="font-size:1.3rem;">a peek at my home screen</h2>
+    <span class="eyebrow">a little receipt 🧾</span>
+    <h2 class="headline" style="font-size:1.3rem;">proof of purchase</h2>
 
-    <div class="phone-stack">
-      <div>
-        <p class="chip-label">wallpaper</p>
-        <div class="phone-chip">
-          <div class="wallpaper-screen">
-            <div class="wallpaper-hearts" id="wallpaper-hearts"></div>
-            <div class="wallpaper-time">11:58 PM</div>
-            <div class="wallpaper-name js-nickname">her</div>
-          </div>
-        </div>
+    <div class="receipt">
+      <div class="receipt-header">
+        <div class="receipt-star">✿ ✿ ✿</div>
+        <div class="receipt-shop">THE LOVE STORE</div>
+        <div class="receipt-sub">est. <span class="js-milestone-start"></span></div>
       </div>
-      <div>
-        <p class="chip-label">saved as</p>
-        <div class="phone-chip">
-          <div class="contact-screen">
-            <div class="contact-avatar">💗</div>
-            <div class="contact-name js-nickname">her</div>
-            <div class="contact-sub">calling<span class="contact-dots"><span></span><span></span><span></span></span></div>
-          </div>
-        </div>
+      <div class="receipt-line">ORDER FOR: <span class="js-nickname">her</span></div>
+      <div class="receipt-line">DATE: <span class="js-milestone-end"></span></div>
+      <div class="receipt-divider">- - - - - - - - - - - - - - - -</div>
+      <div class="receipt-items" id="receipt-items"></div>
+      <div class="receipt-divider">- - - - - - - - - - - - - - - -</div>
+      <div class="receipt-total">TOTAL: <span id="receipt-total"></span></div>
+      <div class="receipt-divider">- - - - - - - - - - - - - - - -</div>
+      <div class="receipt-footer">
+        ♥ thank you for choosing me ♥<br>
+        no returns · no refunds · no exchanges
       </div>
-      <div>
-        <p class="chip-label">notes app, 2AM</p>
-        <div class="phone-chip">
-          <div class="notes-screen">
-            <div class="notes-title">Untitled Note</div>
-            <div class="notes-time">Today 2:04 AM</div>
-            <div class="notes-body" id="two-am-note"></div>
-          </div>
-        </div>
-      </div>
+      <div class="receipt-barcode"></div>
     </div>
 
     <button class="btn btn-sm" id="btn-phone-continue" style="background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;margin-top:18px;">continue ➜</button>
@@ -778,6 +754,15 @@
     milestoneDate: 'Aug 1',
     twoAmNote: "can't sleep. just thinking about how lucky I am that you exist. that's it, that's the whole note. go to bed though.",
 
+    receiptItems: [
+      { qty: '1x', item: 'good morning texts', price: 'free' },
+      { qty: '1x', item: 'late night calls', price: 'priceless' },
+      { qty: '2x', item: 'forehead kisses', price: '∞' },
+      { qty: '1x', item: 'your annoying laugh', price: 'worth it' },
+      { qty: '1x', item: 'whole heart', price: 'yours' },
+    ],
+    receiptTotal: 'everything I have',
+
     reasons: [
       { text: "you narrate our pet's thoughts in a voice only you do", tone:'funny' },
       { text: "you make ordinary Tuesdays feel like plans", tone:'sincere' },
@@ -803,21 +788,20 @@
   document.querySelectorAll('.js-nickname').forEach(el => el.textContent = CONFIG.herNickname);
   document.getElementById('milestone-start').textContent = CONFIG.startDate;
   document.getElementById('milestone-end').textContent = CONFIG.milestoneDate;
-  document.getElementById('two-am-note').textContent = CONFIG.twoAmNote;
+  document.getElementById('two-am-note') !== null && (document.getElementById('two-am-note').textContent = CONFIG.twoAmNote); // kept as safe no-op
 
-  // small floating hearts inside the wallpaper mockup
-  (function initWallpaperHearts(){
-    const layer = document.getElementById('wallpaper-hearts');
-    for(let i=0;i<6;i++){
-      const h = document.createElement('span');
-      h.textContent = '💗';
-      h.style.left = (Math.random()*90)+'%';
-      h.style.top = (Math.random()*90)+'%';
-      h.style.fontSize = (0.6+Math.random()*0.8)+'rem';
-      layer.appendChild(h);
-    }
-  })();
+  // populate love receipt
+  document.querySelectorAll('.js-milestone-start').forEach(el => el.textContent = CONFIG.startDate);
+  document.querySelectorAll('.js-milestone-end').forEach(el => el.textContent = CONFIG.milestoneDate);
+  document.getElementById('receipt-total').textContent = CONFIG.receiptTotal;
 
+  const receiptItemsEl = document.getElementById('receipt-items');
+  CONFIG.receiptItems.forEach(row => {
+    const line = document.createElement('div');
+    line.className = 'receipt-item-row';
+    line.innerHTML = `<span>${row.qty}</span><span class="item-name">${row.item}</span><span>${row.price}</span>`;
+    receiptItemsEl.appendChild(line);
+  });
 
 
   /* ================= STICKER BACKGROUND ================= */

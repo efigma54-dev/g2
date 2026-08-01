@@ -445,25 +445,7 @@
   .notes-time{ font-family:'Quicksand'; font-size:.6rem; color:#a8977a; margin-bottom:4px; }
   .notes-body{ font-family:'Caveat'; font-size:1.15rem; color:#4a3c28; line-height:1.3; text-align:left; }
 
-  /* ---------- photo timeline ---------- */
-  .timeline-track{ display:flex; flex-direction:column; gap:16px; margin:16px 0 4px; }
-  .timeline-item{ display:flex; align-items:center; gap:12px; text-align:left; }
-  .timeline-item:nth-child(even){ flex-direction:row-reverse; text-align:right; }
-  .polaroid{
-    flex:0 0 auto; width:92px; background:#fff; padding:6px 6px 16px; border-radius:6px;
-    box-shadow:0 6px 14px rgba(91,58,82,.2); cursor:pointer; position:relative;
-    transform:rotate(var(--tilt,-2deg));
-  }
-  .polaroid-frame{
-    width:100%; aspect-ratio:1/1; border-radius:2px; overflow:hidden;
-    background:linear-gradient(135deg,var(--lavender-2),var(--blush-2));
-    display:flex; align-items:center; justify-content:center; font-size:1.4rem; color:var(--pink-deep);
-  }
-  .polaroid-frame img{ width:100%; height:100%; object-fit:cover; }
-  .timeline-caption{
-    font-family:'Caveat'; font-size:1.05rem; color:var(--plum); font-weight:600; flex:1 1 auto;
-  }
-  .timeline-hint{ font-family:'Quicksand'; font-size:.62rem; color:var(--plum-soft); margin-top:2px; }
+
 
   footer.tiny{
     position:fixed; bottom:6px; left:0; right:0; text-align:center;
@@ -711,21 +693,7 @@
   </div>
 </section>
 
-<!-- STAGE 3.65: PHOTO TIMELINE -->
-<section class="stage" id="stage-timeline">
-  <div class="card">
-    <div class="tape tl"></div>
-    <div class="tape tr"></div>
-    <span class="eyebrow">our story so far 🎞️</span>
-    <h2 class="headline" style="font-size:1.3rem;">a little timeline of us</h2>
-    <p class="timeline-hint">tap any polaroid to preview a photo from your device</p>
 
-    <div class="timeline-track" id="timeline-track"></div>
-    <input type="file" id="timeline-file-input" accept="image/*" style="display:none;">
-
-    <button class="btn btn-sm" id="btn-timeline-continue" style="background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;margin-top:18px;">continue ➜</button>
-  </div>
-</section>
 
 <!-- STAGE 3.7: REASONS WHY -->
 <section class="stage" id="stage-reasons">
@@ -799,16 +767,7 @@
     startDate: 'Jun 1',
     milestoneDate: 'Aug 1',
     twoAmNote: "can't sleep. just thinking about how lucky I am that you exist. that's it, that's the whole note. go to bed though.",
-    // Timeline: add up to ~6 moments. Leave img as null for a cute placeholder card,
-    // or paste an image URL / base64 data-URI to show a real photo. You can also just
-    // click any placeholder in the live page to preview a photo from your device.
-    timeline: [
-      { caption: 'the day it started', img: null },
-      { caption: 'first proper date', img: null },
-      { caption: 'that trip we still talk about', img: null },
-      { caption: 'the blurry one, still my favorite', img: null },
-      { caption: 'last week, being us', img: null },
-    ],
+
     reasons: [
       { text: "you narrate our pet's thoughts in a voice only you do", tone:'funny' },
       { text: "you make ordinary Tuesdays feel like plans", tone:'sincere' },
@@ -849,37 +808,7 @@
     }
   })();
 
-  /* ================= PHOTO TIMELINE ================= */
-  (function initTimeline(){
-    const track = document.getElementById('timeline-track');
-    const fileInput = document.getElementById('timeline-file-input');
-    let activeFrame = null;
 
-    CONFIG.timeline.forEach((item, i)=>{
-      const row = document.createElement('div');
-      row.className = 'timeline-item';
-      const tilt = (i % 2 === 0 ? -3 : 3) + (Math.random()*2-1);
-      row.innerHTML = `
-        <div class="polaroid" style="--tilt:${tilt}deg;">
-          <div class="polaroid-frame">${item.img ? `<img src="${item.img}" alt="${item.caption}">` : '🤍'}</div>
-        </div>
-        <div class="timeline-caption">${item.caption}</div>`;
-      const frame = row.querySelector('.polaroid-frame');
-      row.querySelector('.polaroid').addEventListener('click', ()=>{
-        activeFrame = frame;
-        fileInput.click();
-      });
-      track.appendChild(row);
-    });
-
-    fileInput.addEventListener('change', (e)=>{
-      const file = e.target.files && e.target.files[0];
-      if(!file || !activeFrame) return;
-      const url = URL.createObjectURL(file);
-      activeFrame.innerHTML = `<img src="${url}" alt="a memory">`;
-      fileInput.value = '';
-    });
-  })();
 
   /* ================= STICKER BACKGROUND ================= */
   const stickerEmojis = ['💕','✨','🎀','🌸','💗','⭐','🩰','🍓','💫','🦢'];
@@ -927,7 +856,7 @@
     celebrate: document.getElementById('stage-celebrate'),
     bouquet: document.getElementById('stage-bouquet'),
     phone: document.getElementById('stage-phone'),
-    timeline: document.getElementById('stage-timeline'),
+
     reasons: document.getElementById('stage-reasons'),
     hug: document.getElementById('stage-hug'),
     closing: document.getElementById('stage-closing'),
@@ -1062,7 +991,7 @@
     }
 
     // label changes
-    const labels = ['no','are you sure?','really?','pookie, no.','nope!','hmm, no','try yes instead','😳 no','...no?','no (final answer? lol no)'];
+    const labels = ['no','please? 🥺','pretty please?','maybe...?','one more chance?','pookie, please?','just say yes 🥹','so close, come on','yes is right there though','okay fine, say it 😌'];
     btnNo.childNodes[0].textContent = labels[Math.min(noAttempts, labels.length-1)] + ' ';
 
     if(reduceMotion){ return; } // keep it simple/static for reduced motion, still "unclickable" via listener below
@@ -1232,8 +1161,7 @@
 
   document.getElementById('btn-continue').addEventListener('click', ()=> goTo('bouquet'));
   document.getElementById('btn-bouquet-continue').addEventListener('click', ()=> goTo('phone'));
-  document.getElementById('btn-phone-continue').addEventListener('click', ()=> goTo('timeline'));
-  document.getElementById('btn-timeline-continue').addEventListener('click', ()=> goTo('reasons'));
+  document.getElementById('btn-phone-continue').addEventListener('click', ()=> goTo('reasons'));
   document.getElementById('btn-reasons-continue').addEventListener('click', ()=> goTo('hug'));
 
   /* ================= REASONS FLIP GRID ================= */

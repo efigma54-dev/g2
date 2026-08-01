@@ -1014,6 +1014,7 @@
     } else {
       // teleport within viewport, avoiding the YES button and any fixed chrome
       // (timer pill, music player, compliment toast) so it's always reachable
+      btnNo.style.position = ''; // clear inline style set during nudge phase — inline always beats class CSS
       btnNo.classList.add('roaming');
       if (btnNo.parentNode !== document.body) {
         document.body.appendChild(btnNo);

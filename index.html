@@ -407,6 +407,31 @@
   }
   #reason-progress{ font-family:'Caveat'; font-size:1.1rem; color:var(--plum-soft); margin:4px 0 0; }
 
+  /* ---------- handwritten love letter ---------- */
+  .letter-card{
+    background:
+      repeating-linear-gradient(var(--cream) 0 27px, rgba(91,58,82,.08) 27px 28px);
+    padding:36px 30px 30px; text-align:left; position:relative;
+    box-shadow:0 14px 30px rgba(91,58,82,.22);
+  }
+  .letter-seal{
+    position:absolute; top:-18px; left:50%; transform:translateX(-50%);
+    width:40px; height:40px; border-radius:50%; background:var(--pink-deep);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .letter-doodle{ text-align:center; color:var(--lavender); font-size:.9rem; letter-spacing:.3em; margin:4px 0; }
+  .letter-doodle.top{ margin-top:10px; }
+  .letter-greeting{
+    font-family:'Caveat'; font-size:1.7rem; color:var(--pink-deep); font-weight:700; margin:10px 0 6px;
+  }
+  .letter-body p{
+    font-family:'Caveat'; font-size:1.3rem; line-height:1.55; color:var(--plum); margin:0 0 12px;
+  }
+  .letter-signoff{
+    font-family:'Caveat'; font-size:1.4rem; color:var(--pink-deep); font-weight:700; text-align:right; margin-top:6px;
+  }
+
   /* ---------- love receipt ---------- */
   .receipt-card{ padding-bottom:30px; }
   .receipt{
@@ -481,6 +506,19 @@
     </div>
     <div class="script" style="font-size:1.5rem;color:var(--pink-deep);">for my favorite person</div>
     <div class="env-hint">tap the envelope to open it ✨</div>
+  </div>
+</section>
+
+<!-- STAGE 1.5: HANDWRITTEN LETTER -->
+<section class="stage" id="stage-letter">
+  <div class="card letter-card">
+    <div class="letter-seal">💌</div>
+    <div class="letter-doodle top">✧ ˚ ⋆ ✧ ˚ ⋆</div>
+    <p class="letter-greeting">Dear <span class="js-nickname">her</span>,</p>
+    <div class="letter-body" id="letter-body"></div>
+    <p class="letter-signoff" id="letter-signoff"></p>
+    <div class="letter-doodle bottom">✧ ˚ ⋆ ✧ ˚ ⋆</div>
+    <button class="btn btn-sm" id="btn-letter-continue" style="background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;margin-top:16px;">keep reading ➜</button>
   </div>
 </section>
 
@@ -750,6 +788,13 @@
      ===================================================================== */
   const CONFIG = {
     herNickname: 'kuchu puchu',          // the name YOU call her — not her formal name
+    loveLetterParagraphs: [
+      "if you're reading this, you already opened the envelope, which means you're already a little bit curious, which is basically your whole personality and I love it.",
+      "I don't really have a big speech. I just wanted one page that's only mine to say, before the rest of this gets silly (it's about to get very silly).",
+      "you make ordinary days feel like they're worth remembering. that's not nothing. that's actually everything.",
+      "so, happy girlfriend day. here's a little bit more, if you'll let me.",
+    ],
+    loveLetterSignoff: "yours, always",
     startDate: 'Jun 1',
     milestoneDate: 'Aug 1',
     twoAmNote: "can't sleep. just thinking about how lucky I am that you exist. that's it, that's the whole note. go to bed though.",
@@ -803,6 +848,15 @@
     receiptItemsEl.appendChild(line);
   });
 
+  // populate handwritten letter
+  const letterBodyEl = document.getElementById('letter-body');
+  CONFIG.loveLetterParagraphs.forEach(p => {
+    const para = document.createElement('p');
+    para.textContent = p;
+    letterBodyEl.appendChild(para);
+  });
+  document.getElementById('letter-signoff').textContent = CONFIG.loveLetterSignoff;
+
 
   /* ================= STICKER BACKGROUND ================= */
   const stickerEmojis = ['💕','✨','🎀','🌸','💗','⭐','🩰','🍓','💫','🦢'];
@@ -846,6 +900,7 @@
   /* ================= STAGE MANAGEMENT ================= */
   const stages = {
     envelope: document.getElementById('stage-envelope'),
+    letter:   document.getElementById('stage-letter'),
     question: document.getElementById('stage-question'),
     celebrate: document.getElementById('stage-celebrate'),
     bouquet: document.getElementById('stage-bouquet'),
@@ -878,7 +933,7 @@
       envelopeWrap.appendChild(h);
     }
     setTimeout(()=>{
-      goTo('question');
+      goTo('letter');
       startTimer();
     }, 950);
   });
@@ -1154,6 +1209,7 @@
     goTo('celebrate');
   });
 
+  document.getElementById('btn-letter-continue').addEventListener('click', ()=> goTo('question'));
   document.getElementById('btn-continue').addEventListener('click', ()=> goTo('bouquet'));
   document.getElementById('btn-bouquet-continue').addEventListener('click', ()=> goTo('phone'));
   document.getElementById('btn-phone-continue').addEventListener('click', ()=> goTo('reasons'));

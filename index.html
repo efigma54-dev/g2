@@ -87,6 +87,14 @@
     0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); }
     50%{ transform:translateY(-18px) rotate(var(--r,0deg)); }
   }
+  .doodle-illustration{ width:130px; height:auto; margin:0 auto 8px; display:block; }
+  .text-sticker{
+    position:absolute; font-family:'Caveat'; font-size:1.1rem; font-weight:600;
+    color:var(--plum); background:#fff; padding:4px 12px; border-radius:3px;
+    box-shadow:0 3px 8px rgba(91,58,82,.15); opacity:.65;
+    animation:float 6s ease-in-out infinite; transform:rotate(var(--r,0deg));
+    white-space:nowrap;
+  }
 
   /* ---------- stage management ---------- */
   .stage{
@@ -431,6 +439,13 @@
   .letter-signoff{
     font-family:'Caveat'; font-size:1.4rem; color:var(--pink-deep); font-weight:700; text-align:right; margin-top:6px;
   }
+  .postage-stamp{
+    position:absolute; top:14px; right:14px; width:36px; height:44px;
+    background:#fdf3e0; display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; transform:rotate(6deg);
+    border:2px dashed var(--pink);
+    box-shadow:0 2px 6px rgba(91,58,82,.15);
+  }
 
   /* ---------- love receipt ---------- */
   .receipt-card{ padding-bottom:30px; }
@@ -513,6 +528,7 @@
 <section class="stage" id="stage-letter">
   <div class="card letter-card">
     <div class="letter-seal">💌</div>
+    <div class="postage-stamp">💌</div>
     <div class="letter-doodle top">✧ ˚ ⋆ ✧ ˚ ⋆</div>
     <p class="letter-greeting">Dear <span class="js-nickname">her</span>,</p>
     <div class="letter-body" id="letter-body"></div>
@@ -722,8 +738,15 @@
     <div class="tape tl"></div>
     <div class="tape tr"></div>
     <svg class="bow-accent" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
-      <path d="M30 20 C22 8, 4 8, 4 20 C4 30, 20 26, 30 20 Z" fill="#FF9CBE" stroke="#5B3A52" stroke-width="1.4"/>
-      <path d="M30 20 C38 8, 56 8, 56 20 C56 30, 40 26, 30 20 Z" fill="#FF6FA5" stroke="#5B3A52" stroke-width="1.4"/>
+      <defs>
+        <pattern id="ginghamPattern" width="8" height="8" patternUnits="userSpaceOnUse">
+          <rect width="8" height="8" fill="#fff"/>
+          <rect width="4" height="4" fill="#FF9CBE"/>
+          <rect x="4" y="4" width="4" height="4" fill="#FF9CBE"/>
+        </pattern>
+      </defs>
+      <path d="M30 20 C22 8, 4 8, 4 20 C4 30, 20 26, 30 20 Z" fill="url(#ginghamPattern)" stroke="#5B3A52" stroke-width="1.4"/>
+      <path d="M30 20 C38 8, 56 8, 56 20 C56 30, 40 26, 30 20 Z" fill="url(#ginghamPattern)" stroke="#5B3A52" stroke-width="1.4"/>
       <circle cx="30" cy="20" r="5" fill="#FFD166" stroke="#5B3A52" stroke-width="1.4"/>
     </svg>
     <span class="eyebrow">for <span class="js-nickname">her</span>, specifically</span>
@@ -742,7 +765,18 @@
   <div class="card">
     <div class="tape tl"></div>
     <div class="tape tr"></div>
-    <div class="final-emoji">🤗</div>
+    <svg viewBox="0 0 240 220" class="doodle-illustration" xmlns="http://www.w3.org/2000/svg">
+      <path d="M120 20 C116 14 106 14 104 22 C102 30 112 38 120 44 C128 38 138 30 136 22 C134 14 124 14 120 20 Z" fill="var(--pink-deep)"/>
+      <path d="M140 70 C120 68 106 84 108 106 C109 122 118 150 118 170 C118 185 128 195 145 195 C165 195 178 182 178 160 C178 140 172 120 168 100 C165 84 158 72 140 70 Z" fill="var(--lavender)" stroke="var(--plum)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M118 78 C112 68 118 55 132 54 C148 52 158 62 156 76 C154 68 144 62 134 64 C124 66 120 72 118 78 Z" fill="var(--plum)"/>
+      <path d="M60 90 C42 92 30 110 34 132 C37 150 48 165 58 178 C64 186 74 190 86 188 L120 186 C128 186 132 178 128 170 C118 168 108 160 104 148 C98 130 100 108 92 96 C84 84 72 88 60 90 Z" fill="var(--pink)" stroke="var(--plum)" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="70" cy="70" r="24" fill="#f6d9bd" stroke="var(--plum)" stroke-width="3"/>
+      <path d="M48 66 C42 48 58 34 76 36 C94 38 100 54 94 68 C90 56 78 48 66 50 C56 52 50 58 48 66 Z" fill="var(--plum)"/>
+      <circle cx="60" cy="76" r="4" fill="#ff9cae" opacity=".6"/>
+      <circle cx="82" cy="76" r="4" fill="#ff9cae" opacity=".6"/>
+      <path d="M92 100 C110 96 128 100 138 116" fill="none" stroke="var(--plum)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M112 165 C122 172 134 172 142 164" fill="none" stroke="var(--plum)" stroke-width="4" stroke-linecap="round"/>
+    </svg>
     <h2 class="headline" style="font-size:1.4rem;">one more thing...</h2>
     <p class="sub">can I have a hug too?</p>
     <div class="btn-row">
@@ -758,9 +792,24 @@
     <div class="tape tl"></div>
     <div class="tape tr"></div>
     <div class="tape bl"></div>
-    <div class="final-emoji">💞</div>
+    <svg viewBox="0 0 240 220" class="doodle-illustration" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="70" cy="60" r="26" fill="#f6d9bd" stroke="var(--plum)" stroke-width="4"/>
+      <path d="M46 56 C40 36 58 20 78 22 C98 24 106 42 98 58 C94 44 80 36 66 38 C54 40 48 48 46 56 Z" fill="var(--plum)"/>
+      <circle cx="60" cy="66" r="4" fill="#ff9cae" opacity=".6"/>
+      <circle cx="82" cy="66" r="4" fill="#ff9cae" opacity=".6"/>
+      <path d="M50 84 C30 90 22 112 26 140 C29 162 42 182 62 190 L92 190 C100 190 104 182 100 174 C86 170 76 158 74 142 C72 120 74 98 66 88 C62 82 56 82 50 84 Z" fill="var(--pink)" stroke="var(--plum)" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M96 120 C120 110 140 108 158 96" fill="none" stroke="var(--plum)" stroke-width="5" stroke-linecap="round"/>
+      <g transform="translate(158,70) rotate(18)">
+        <path d="M0 40 L4 40 L4 0 L0 0 Z" fill="#B98A4C"/>
+        <ellipse cx="2" cy="-4" rx="10" ry="18" fill="var(--pink)" stroke="var(--plum)" stroke-width="2"/>
+        <ellipse cx="-12" cy="4" rx="10" ry="18" fill="var(--pink-deep)" stroke="var(--plum)" stroke-width="2" transform="rotate(-25 -12 4)"/>
+        <ellipse cx="14" cy="4" rx="10" ry="18" fill="#FFD166" stroke="var(--plum)" stroke-width="2" transform="rotate(25 14 4)"/>
+        <path d="M-6 40 C-14 30 -10 20 0 22" fill="none" stroke="#7BC47F" stroke-width="3"/>
+      </g>
+    </svg>
     <h1 class="headline">happy girlfriend day</h1>
     <p class="sub script" style="font-size:1.3rem;">here's to us, today and always ✨</p>
+    <p class="script" style="font-size:1.1rem;color:var(--plum-soft);margin-top:-4px;">my love for you, always</p>
     <button class="btn btn-sm" id="btn-kiss" style="background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;margin-top:10px;">send a kiss 💋</button>
     <div style="margin-top:16px;">
       <button id="btn-replay" style="background:none; border:none; color:var(--plum-soft); font-family:inherit; font-size:0.9rem; cursor:pointer; text-decoration:underline;">replay ↺</button>
@@ -872,6 +921,20 @@
     el.style.animationDuration = (5 + Math.random()*4) + 's';
     el.style.animationDelay = (Math.random()*3) + 's';
     el.style.fontSize = (1.3 + Math.random()*1.4) + 'rem';
+    stickerLayer.appendChild(el);
+  }
+
+  const textStickers = ['favorite person', 'memories', 'I love you', 'my dearest', 'love you to the moon and back'];
+  const textStickerCount = window.innerWidth < 600 ? 3 : 5;
+  for(let i=0;i<textStickerCount;i++){
+    const el = document.createElement('span');
+    el.className = 'text-sticker';
+    el.textContent = textStickers[i % textStickers.length];
+    el.style.left = (5 + Math.random()*80) + '%';
+    el.style.top = (5 + Math.random()*80) + '%';
+    el.style.setProperty('--r', (Math.random()*16-8)+'deg');
+    el.style.animationDuration = (6 + Math.random()*4) + 's';
+    el.style.animationDelay = (Math.random()*3) + 's';
     stickerLayer.appendChild(el);
   }
 

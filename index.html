@@ -2,8 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>will you be my girlfriend? 🎀</title>
+<meta property="og:title" content="will you be my girlfriend? 🎀">
+<meta property="og:description" content="a little something for you, kuchu puchu 💌">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://g2-roan.vercel.app/">
+<meta property="og:image" content="https://g2-roan.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💗</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -226,7 +233,7 @@
   }
 
   #timer-pill{
-    position:fixed; bottom:18px; left:18px; z-index:40;
+    position:fixed; bottom:calc(18px + env(safe-area-inset-bottom)); left:18px; z-index:40;
     background:rgba(255,255,255,.85); backdrop-filter:blur(6px);
     padding:8px 14px; border-radius:999px; font-size:.8rem; font-weight:600;
     color:var(--plum-soft); box-shadow:0 4px 12px rgba(0,0,0,.08);
@@ -268,7 +275,7 @@
 
   /* ---------- music player ---------- */
   #music-player{
-    position:fixed; bottom:18px; right:18px; z-index:40;
+    position:fixed; bottom:calc(18px + env(safe-area-inset-bottom)); right:18px; z-index:40;
     background:#fff; border-radius:999px; padding:10px 16px 10px 10px;
     display:flex; align-items:center; gap:10px; box-shadow:0 8px 20px rgba(0,0,0,.12);
   }
@@ -458,8 +465,8 @@
     .btn{ padding:14px 22px; font-size:.95rem; }
     #cupid{ right:0; }
     .cupid-bubble{ right:0; font-size:.66rem; max-width:140px; white-space:normal; }
-    #music-player{ right:10px; bottom:10px; }
-    #timer-pill{ left:10px; bottom:10px; }
+    #music-player{ right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); }
+    #timer-pill{ left:10px; bottom:calc(10px + env(safe-area-inset-bottom)); }
     #timer-nudge{ left:10px; max-width:170px; }
   }
 </style>
@@ -741,6 +748,9 @@
     <h1 class="headline">happy girlfriend day</h1>
     <p class="sub script" style="font-size:1.3rem;">here's to us, today and always ✨</p>
     <button class="btn btn-sm" id="btn-kiss" style="background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;margin-top:10px;">send a kiss 💋</button>
+    <div style="margin-top:16px;">
+      <button id="btn-replay" style="background:none; border:none; color:var(--plum-soft); font-family:inherit; font-size:0.9rem; cursor:pointer; text-decoration:underline;">replay ↺</button>
+    </div>
   </div>
 </section>
 
@@ -1199,6 +1209,34 @@
     if(!reduceMotion) launchFireworks();
     e.target.textContent = 'sent 💌';
     setTimeout(()=>{ e.target.textContent = 'send another 💋'; }, 1800);
+  });
+  document.getElementById('btn-replay').addEventListener('click', ()=>{
+    noAttempts = 0;
+    loveLevel = 0;
+    opened = false;
+    document.getElementById('envelope').classList.remove('open');
+    setMeter();
+    btnYes.style.transform = '';
+    btnYes.style.boxShadow = '';
+    if(btnNo) {
+      btnNo.style.display = '';
+      btnNo.style.position = '';
+      btnNo.style.left = '';
+      btnNo.style.top = '';
+      btnNo.style.fontSize = '';
+      btnNo.style.padding = '';
+      btnNo.classList.remove('roaming');
+      if (btnNo.parentNode !== document.getElementById('btn-row')) {
+        document.getElementById('btn-row').appendChild(btnNo);
+      }
+    }
+    document.querySelectorAll('.reason-card').forEach(el=>el.classList.remove('flipped'));
+    document.getElementById('reason-progress').textContent = '0 / ' + CONFIG.reasons.length + ' revealed';
+    document.querySelectorAll('.floating-heart-pop').forEach(el=>el.remove());
+    seconds = 0;
+    document.getElementById('timer-text').textContent = '0:00';
+    nudged = false;
+    goTo('envelope');
   });
 
   /* ================= AMBIENT MUSIC (Web Audio, generative, no external files) ================= */
